@@ -1,0 +1,16 @@
+{
+  "name": "quickjs-emscripten-memory-leak-repro",
+  "version": "1.0.0",
+  "main": "src",
+  "dependencies": {
+    "@types/node": "^17.0.21",
+    "quickjs-emscripten": "^0.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "start": "node dist"
+  }
+}
