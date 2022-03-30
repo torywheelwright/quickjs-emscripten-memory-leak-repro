@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
   integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
-quickjs-emscripten@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/quickjs-emscripten/-/quickjs-emscripten-0.15.0.tgz#636b87d09a9ae79772fca20cce8ad74a1c1a5542"
-  integrity sha512-7b32VY45/Rmo/S81W0VcHnsPW9yvCbGOCjf+xl8XYcQIL/FmbfmwroJPnyXHRYC0HO8mk8cTkvsMC+0bR/NrJA==
+quickjs-emscripten@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/quickjs-emscripten/-/quickjs-emscripten-0.20.0.tgz#b195df786e97c2aee9c03579c054f8aa41aef4f9"
+  integrity sha512-MQUFiFkM4zFPTSd9ZN4COL41wrYjsOx8qKvyrHI7UNzHRsmZPCJffeCm8lgfqHElcenLRkRrRPRzhS3CpH1tjA==
 
 typescript@^4.2.4:
   version "4.6.2"

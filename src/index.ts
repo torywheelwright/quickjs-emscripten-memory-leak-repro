@@ -1,52 +1,52 @@
-import assert from 'assert';
-import { QuickJSHandle, getQuickJS } from 'quickjs-emscripten';
+import {
+  QuickJSContext,
+  QuickJSHandle,
+  Scope,
+  TestQuickJSWASMModule,
+  getQuickJS,
+} from 'quickjs-emscripten';
 
-function get(): number {
-  return process.memoryUsage().external;
-}
-
-function format(mem: number): string {
-  return `${mem / (1000 * 1000)}`;
-}
-
-async function main() {
+async function testWithScope(code: string) {
   const QuickJS = await getQuickJS();
 
-  const initial = get();
-  let n = 0;
-  let last = initial;
+  await Scope.withScopeAsync(async scope => {
+    const ctx = scope.manage(QuickJS.newContext());
 
-  while (true) {
-    const vm = QuickJS.createVm();
-    const result = vm.evalCode("const arr = []; for (let i = 0; i < 1000; ++i) { arr.push(i); } arr");
-    assert(!result.error);
-
-    // It doesn't leak if you comment this line out.
-    vm.dump(result.value);
-
-    result.value.dispose();
-    vm.dispose();
-
-    const current = get();
-
-    if (n % 1000 === 0) {
-      console.log(
-        new Date().toISOString(),
-        '[',
-        n,
-        ']',
-        'initial:',
-        format(initial),
-        'current:',
-        format(current),
-        'cumulative change:',
-        format(current - initial),
-      );
+    try {
+      ctx.evalCode(code);
+    } catch (e) {
+      console.error('caught:', e);
+      return;
     }
 
-    last = current;
-    ++n;
+    throw new Error('expected evalCode to throw');
+  });
+}
+
+async function testWithoutScope(code: string) {
+  const QuickJS = await getQuickJS();
+  const ctx = QuickJS.newContext();
+
+  try {
+    ctx.evalCode(code);
+  } catch (e) {
+    console.error('caught:', e);
+    return;
+  } finally {
+    ctx.dispose();
   }
+
+  throw new Error('expected evalCode to throw');
+}
+
+const SYNC_CODE = 'function run() { run(); }; run()';
+const ASYNC_CODE = 'async function run() { await run(); }; run()';
+
+async function main() {
+  await testWithoutScope(SYNC_CODE);
+  // await testWithoutScope(ASYNC_CODE);
+  // await testWithScope(SYNC_CODE);
+  // await testWithScope(ASYNC_CODE);
 }
 
 main();

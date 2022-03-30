@@ -4,7 +4,7 @@
   "main": "src",
   "dependencies": {
     "@types/node": "^17.0.21",
-    "quickjs-emscripten": "^0.15.0"
+    "quickjs-emscripten": "^0.20.0"
   },
   "devDependencies": {
     "typescript": "^4.2.4"
